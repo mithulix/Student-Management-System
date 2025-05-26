@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "name": "Rafi Ahmed",
+    "age": 24,
+    "gender": "Male",
+    "email": "rafi@example.com",
+    "phone": "01712345678",
+    "address": {
+      "city": "Dhaka",
+      "area": "Dhanmondi",
+      "zip": "1205"
+    },
+    "course": "Web Development",
+    "enrolledDate": "2024-01-15",
+    "status": "Active"
+  },
+  {
+    "id": 2,
+    "name": "Sadia Islam",
+    "age": 22,
+    "gender": "Female",
+    "email": "sadia@example.com",
+    "phone": "01787654321",
+    "address": {
+      "city": "Chittagong",
+      "area": "Panchlaish",
+      "zip": "4000"
+    },
+    "course": "Data Science",
+    "enrolledDate": "2023-11-20",
+    "status": "Completed"
+  },
+  {
+    "id": 3,
+    "name": "Nayeem Khan",
+    "age": 23,
+    "gender": "Male",
+    "email": "nayeem@example.com",
+    "phone": "01812345678",
+    "address": {
+      "city": "Khulna",
+      "area": "Sonadanga",
+      "zip": "9100"
+    },
+    "course": "AI & ML",
+    "enrolledDate": "2024-02-10",
+    "status": "Active"
+  },
+  {
+    "id": 4,
+    "name": "Ayesha Tasnim",
+    "age": 21,
+    "gender": "Female",
+    "email": "ayesha@example.com",
+    "phone": "01922334455",
+    "address": {
+      "city": "Sylhet",
+      "area": "Zindabazar",
+      "zip": "3100"
+    },
+    "course": "Cyber Security",
+    "enrolledDate": "2024-01-05",
+    "status": "Active"
+  },
+  {
+    "id": 5,
+    "name": "Tanvir Hasan",
+    "age": 25,
+    "gender": "Male",
+    "email": "tanvir@example.com",
+    "phone": "01611223344",
+    "address": {
+      "city": "Rajshahi",
+      "area": "Shaheb Bazar",
+      "zip": "6000"
+    },
+    "course": "UI/UX Design",
+    "enrolledDate": "2023-10-01",
+    "status": "Completed"
+  },
+  {
+    "id": 6,
+    "name": "Jannat Faria",
+    "age": 20,
+    "gender": "Female",
+    "email": "jannat@example.com",
+    "phone": "01555667788",
+    "address": {
+      "city": "Barisal",
+      "area": "Nobogram",
+      "zip": "8200"
+    },
+    "course": "Networking",
+    "enrolledDate": "2024-03-01",
+    "status": "Active"
+  },
+  {
+    "id": 7,
+    "name": "Asif Mahmud",
+    "age": 28,
+    "gender": "Male",
+    "email": "asif@example.com",
+    "phone": "01744556677",
+    "address": {
+      "city": "Dhaka",
+      "area": "Uttara",
+      "zip": "1230"
+    },
+    "course": "DevOps",
+    "enrolledDate": "2023-09-15",
+    "status": "Completed"
+  },
+  {
+    "id": 8,
+    "name": "Tanzina Rahman",
+    "age": 22,
+    "gender": "Female",
+    "email": "tanzina@example.com",
+    "phone": "01899887766",
+    "address": {
+      "city": "Rangpur",
+      "area": "Medical More",
+      "zip": "5400"
+    },
+    "course": "Cloud Computing",
+    "enrolledDate": "2024-02-20",
+    "status": "Active"
+  },
+  {
+    "id": 9,
+    "name": "Faruk Hossain",
+    "age": 27,
+    "gender": "Male",
+    "email": "faruk@example.com",
+    "phone": "01766778899",
+    "address": {
+      "city": "Comilla",
+      "area": "Kandirpar",
+      "zip": "3500"
+    },
+    "course": "Blockchain",
+    "enrolledDate": "2023-12-01",
+    "status": "Inactive"
+  },
+  {
+    "id": 10,
+    "name": "Sumaiya Akter",
+    "age": 20,
+    "gender": "Female",
+    "email": "sumaiya@example.com",
+    "phone": "01988776655",
+    "address": {
+      "city": "Dhaka",
+      "area": "Mirpur",
+      "zip": "1216"
+    },
+    "course": "Python",
+    "enrolledDate": "2024-03-15",
+    "status": "Active"
+  }
+]

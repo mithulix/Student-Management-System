@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Management App</title>
+    <!-- ✅ Responsive styles for mobile and desktop -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        margin: 20px;
+        transition: background 0.3s, color 0.3s;
+      }
+      body.dark {
+        background: #1e1e1e;
+        color: #f1f1f1;
+      }
+      .controls,
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+      input,
+      select,
+      button,
+      label {
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        min-width: 150px;
+        box-sizing: border-box;
+      }
+      input.invalid,
+      select.invalid {
+        border-color: red;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 0 10px #ccc;
+        margin-top: 10px;
+      }
+      table th,
+      table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+      }
+      th {
+        background: #f0f0f0;
+        cursor: pointer;
+      }
+      body.dark table {
+        background: #2c2c2c;
+      }
+      #toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #323232;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        opacity: 0;
+        transition: opacity 0.5s;
+        pointer-events: none;
+        z-index: 9999;
+      }
+      #toast.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      @media (max-width: 600px) {
+        table th,
+        table td {
+          font-size: 12px;
+          padding: 6px;
+        }
+        input,
+        select,
+        button {
+          min-width: 100%;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ✅ Header title -->
+    <h2 style="text-align: center">📋 Student Management App</h2>
+
+    <!-- ✅ Controls and Inputs -->
+    <div class="controls">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search..."
+        onkeyup="searchStudents()"
+      />
+      <select id="rowsPerPageSelect" onchange="changeRowsPerPage()">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="9999">All</option>
+      </select>
+      <button onclick="exportToCSV()">📤 Export CSV</button>
+      <button onclick="resetAllData()">🗑️ Reset All</button>
+      <button onclick="document.body.classList.toggle('dark')">
+        🌓 Dark Mode
+      </button>
+      <button onclick="document.getElementById('importJson').click()">
+        📥 Import
+      </button>
+      <input
+        type="file"
+        id="importJson"
+        accept="application/json"
+        onchange="importJSON(event)"
+        style="display: none"
+      />
+    </div>
+
+    <!-- ✅ Filters -->
+    <div class="filters">
+      <select id="filterCourse" onchange="applyFilters()">
+        <option value="">Filter by Course</option>
+      </select>
+      <select id="filterStatus" onchange="applyFilters()">
+        <option value="">Filter by Status</option>
+      </select>
+    </div>
+
+    <!-- ✅ Student Form -->
+    <div class="controls">
+      <input id="name" placeholder="Name" />
+      <input id="age" type="number" placeholder="Age" />
+      <input id="course" placeholder="Course" />
+      <input id="email" placeholder="Email" />
+      <input id="phone" placeholder="Phone" />
+      <input id="city" placeholder="City" />
+      <input id="area" placeholder="Area" />
+      <input id="zip" placeholder="ZIP" />
+      <select id="status">
+        <option value="Active">Active</option>
+        <option value="Completed">Completed</option>
+        <option value="Inactive">Inactive</option>
+      </select>
+      <button onclick="saveStudent()">💾 Save</button>
+    </div>
+
+    <!-- ✅ Data Table -->
+    <table id="studentTable">
+      <thead>
+        <tr>
+          <th onclick="sortTable('id')">ID</th>
+          <th onclick="sortTable('name')">Name</th>
+          <th onclick="sortTable('age')">Age</th>
+          <th>Course</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- ✅ Pagination -->
+    <div id="pagination" class="controls"></div>
+
+    <!-- ✅ Toast -->
+    <div id="toast"></div>
+
+    <!-- ✅ Import Handler -->
+    <script>
+      // ✅ save the student data to localStorage
+
+      function saveStudent() {
+        const fields = [
+          "name",
+          "age",
+          "course",
+          "email",
+          "phone",
+          "city",
+          "area",
+          "zip",
+          "status",
+        ];
+        let isValid = true;
+        const student = {};
+
+        fields.forEach((id) => {
+          const el = document.getElementById(id);
+          const value = el.value.trim();
+          el.classList.remove("invalid");
+
+          if (!value) {
+            el.classList.add("invalid");
+            if (isValid) el.focus();
+            isValid = false;
+          } else {
+            if (id === "email" && !/^\S+@\S+\.\S+$/.test(value)) {
+              el.classList.add("invalid");
+              showToast("❗ Invalid email address.");
+              el.focus();
+              isValid = false;
+            } else if (id === "phone" && !/^\d{10,15}$/.test(value)) {
+              el.classList.add("invalid");
+              showToast("❗ Phone must be 10–15 digits.");
+              el.focus();
+              isValid = false;
+            } else {
+              student[id] = value;
+            }
+          }
+        });
+
+        if (!isValid) {
+          showToast("❗ Please fill all fields correctly.");
+          return;
+        }
+
+        // 🔁 নতুন ID নির্ধারণ: সর্বোচ্চ ID থেকে +1
+        const students = JSON.parse(localStorage.getItem("students") || "[]");
+        let maxId = students.reduce(
+          (max, s) => Math.max(max, parseInt(s.id || 0)),
+          0
+        );
+        student.id = maxId + 1;
+
+        student.address = {
+          city: student.city,
+          area: student.area,
+          zip: student.zip,
+        };
+        delete student.city;
+        delete student.area;
+        delete student.zip;
+
+        students.push(student);
+        localStorage.setItem("students", JSON.stringify(students));
+        showToast("✅ Student saved successfully!");
+        location.reload();
+      }
+
+      //Toast notification function
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2500);
+      }
+
+      //Import JSON file handler
+      function importJSON(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          try {
+            const imported = JSON.parse(e.target.result);
+            if (Array.isArray(imported)) {
+              localStorage.setItem("students", JSON.stringify(imported));
+              location.reload();
+            } else {
+              alert("Invalid file format. Please provide a valid JSON array.");
+            }
+          } catch (err) {
+            alert("Failed to parse JSON file.");
+          }
+        };
+        reader.readAsText(file);
+      }
+    </script>
+
+    <!-- ✅ Main Logic -->
+    <script src="script.js"></script>
+  </body>
+</html>
