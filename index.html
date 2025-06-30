@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Management App</title>
-    <!-- ✅ Responsive styles for mobile and desktop -->
+    <!-- Responsive styles for mobile and desktop -->
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -100,10 +100,10 @@
     </style>
   </head>
   <body>
-    <!-- ✅ Header title -->
+    <!--  Header title -->
     <h2 style="text-align: center">📋 Student Management App</h2>
 
-    <!-- ✅ Controls and Inputs -->
+    <!--  Controls and Inputs -->
     <div class="controls">
       <input
         type="text"
@@ -134,7 +134,7 @@
       />
     </div>
 
-    <!-- ✅ Filters -->
+    <!--  Filters -->
     <div class="filters">
       <select id="filterCourse" onchange="applyFilters()">
         <option value="">Filter by Course</option>
@@ -144,7 +144,7 @@
       </select>
     </div>
 
-    <!-- ✅ Student Form -->
+    <!--  Student Form -->
     <div class="controls">
       <input id="name" placeholder="Name" />
       <input id="age" type="number" placeholder="Age" />
@@ -162,7 +162,7 @@
       <button onclick="saveStudent()">💾 Save</button>
     </div>
 
-    <!-- ✅ Data Table -->
+    <!--  Data Table -->
     <table id="studentTable">
       <thead>
         <tr>
@@ -180,15 +180,15 @@
       <tbody></tbody>
     </table>
 
-    <!-- ✅ Pagination -->
+    <!-- Pagination -->
     <div id="pagination" class="controls"></div>
 
-    <!-- ✅ Toast -->
+    <!-- Toast -->
     <div id="toast"></div>
 
-    <!-- ✅ Import Handler -->
+    <!-- Import Handler -->
     <script>
-      // ✅ save the student data to localStorage
+      // save the student data to localStorage
 
       function saveStudent() {
         const fields = [
@@ -236,7 +236,7 @@
           return;
         }
 
-        // 🔁 নতুন ID নির্ধারণ: সর্বোচ্চ ID থেকে +1
+        // নতুন ID নির্ধারণ: সর্বোচ্চ ID থেকে +1
         const students = JSON.parse(localStorage.getItem("students") || "[]");
         let maxId = students.reduce(
           (max, s) => Math.max(max, parseInt(s.id || 0)),
@@ -289,7 +289,7 @@
       }
     </script>
 
-    <!-- ✅ Main Logic -->
+    <!-- Main Logic -->
     <script src="script.js"></script>
   </body>
 </html>
