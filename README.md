@@ -13,14 +13,7 @@ A lightweight and responsive web-based application to manage students using **HT
 
 ## 📁 Folder Structure
 ```
-student-management-app/
-│
-├── index.html            # Main HTML file
-├── script.js             # JavaScript logic
-├── data.json             # Sample data for import
-├── .gitignore            # Git ignore rules
-└── README.md             # Project documentation
-```
+
 
 ## 🚀 Getting Started
 1. Clone this repository:
@@ -49,4 +42,4 @@ git config --list
 
 ---
 
-Developed with ❤️ by [Mohaiminul islam]
+Developed by [Mohaiminul islam]
