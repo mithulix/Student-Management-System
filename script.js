@@ -1,18 +1,18 @@
-// ✅ Student Management - Clean Version with JSON Fallback, LocalStorage, Toasts
+// Student Management - Clean Version with JSON Fallback, LocalStorage, Toasts
 
-// 🔃 Initial variable declarations for managing state
+// Initial variable declarations for managing state
 let students = [];
 let editingIndex = -1;
 let currentPage = 1;
 let rowsPerPage = 5;
 let currentSort = { column: null, ascending: true };
 
-// 💾 Save data to browser localStorage
+// Save data to browser localStorage
 function saveToLocal() {
   localStorage.setItem('students', JSON.stringify(students));
 }
 
-// 📋 Display student data in table with pagination
+// Display student data in table with pagination
 function renderTable(data = applyFilters(false)) {
   const tbody = document.querySelector('#studentTable tbody');
   tbody.innerHTML = '';
@@ -41,7 +41,7 @@ function renderTable(data = applyFilters(false)) {
   renderPagination(data.length);
 }
 
-// 🔢 Show page numbers for navigating through data
+// Show page numbers for navigating through data
 function renderPagination(total) {
   const totalPages = Math.ceil(total / rowsPerPage);
   const container = document.getElementById('pagination');
@@ -55,7 +55,7 @@ function renderPagination(total) {
   }
 }
 
-// ✏️ Load data into form for editing a student
+// Load data into form for editing a student
 function editStudent(index) {
   const s = students[index];
   document.getElementById('name').value = s.name;
@@ -70,7 +70,7 @@ function editStudent(index) {
   editingIndex = index;
 }
 
-// ❌ Delete student from list
+// Delete student from list
 function deleteStudent(index) {
   if (confirm("Delete this student?")) {
     students.splice(index, 1);
@@ -81,7 +81,7 @@ function deleteStudent(index) {
   }
 }
 
-// 🧹 Clear all data from system
+// Clear all data from system
 function resetAllData() {
   if (confirm("Delete ALL data?")) {
     students = [];
@@ -92,19 +92,19 @@ function resetAllData() {
   }
 }
 
-// 🔁 Reset form fields
+// Reset form fields
 function clearForm() {
   ['name','age','course','email','phone','city','area','zip'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('status').value = 'Active';
   editingIndex = -1;
 }
 
-// 🔍 Trigger search
+// Trigger search
 function searchStudents() {
   renderTable(applyFilters(false));
 }
 
-// 🧠 Apply filters to the data list
+// Apply filters to the data list
 function applyFilters(resetPage = true) {
   const query = document.getElementById('searchInput').value.toLowerCase();
   const selectedCourse = document.getElementById('filterCourse').value;
@@ -125,7 +125,7 @@ function applyFilters(resetPage = true) {
   return result;
 }
 
-// ⬇️ Populate dropdown filters for course & status
+// Populate dropdown filters for course & status
 function populateFilterOptions() {
   const courses = [...new Set(students.map(s => s.course))];
   const statuses = [...new Set(students.map(s => s.status))];
@@ -137,7 +137,7 @@ function populateFilterOptions() {
     statuses.map(s => `<option value="${s}">${s}</option>`).join('');
 }
 
-// 📁 Export data to CSV file
+// Export data to CSV file
 function exportToCSV() {
   if (students.length === 0) return alert("No data to export");
   let csv = "ID,Name,Age,Course,Email,Phone,City,Area,ZIP,Status\n";
@@ -151,7 +151,7 @@ function exportToCSV() {
   link.click();
 }
 
-// 🔀 Sort table column
+// Sort table column
 function sortTable(column) {
   currentSort.column = column;
   currentSort.ascending = !currentSort.ascending;
@@ -168,14 +168,14 @@ function sortTable(column) {
   renderTable();
 }
 
-// 🔄 Change visible rows per page
+// Change visible rows per page
 function changeRowsPerPage() {
   rowsPerPage = parseInt(document.getElementById('rowsPerPageSelect').value);
   currentPage = 1;
   renderTable();
 }
 
-// 📦 Load data on page load
+// Load data on page load
 document.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem('students')) {
     students = JSON.parse(localStorage.getItem('students'));
